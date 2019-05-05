@@ -1,6 +1,5 @@
-package com.libalgo.datastructure;
+package com.libalgo.sorting;
 
-import com.libalgo.sorting.InPlaceQuickSort;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;

@@ -1,6 +1,7 @@
 package com.libalgo.datastructure;
 
 
+import com.libalgo.sorting.TestComparableSort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

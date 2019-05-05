@@ -1,4 +1,4 @@
-package com.libalgo.datastructure;
+package com.libalgo.sorting;
 
 import java.util.ArrayList;
 import java.util.List;
