@@ -34,10 +34,9 @@ public class InPlaceQuickSort implements SortingAlgo {
       }
 
       if (ltIdx < gtIdx) {
-        final Comparable temp;
-        temp = items[ltIdx];
+        tempHolder[0] = items[ltIdx];
         items[ltIdx] = items[gtIdx];
-        items[gtIdx] = temp;
+        items[gtIdx] = tempHolder[0];
         ltIdx++;
         gtIdx--;
       }
