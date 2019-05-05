@@ -10,17 +10,17 @@ import java.util.stream.IntStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class ArrayHeapTest {
+class TestArrayHeap implements TestComparableSort {
 
   private final Random random = new Random();
 
   @BeforeEach
-  public void setup() {
+  void setUp() {
     random.setSeed(System.nanoTime());
   }
 
   @Test
-  public void addElementsTest() {
+  void testAddElements() {
 
     final int size = 1000000;
     final Heap<Integer> heap = new ArrayHeap<>(Integer[].class, size);
@@ -40,7 +40,7 @@ public class ArrayHeapTest {
   }
 
   @Test
-  public void addAndRemoveSingleElement() {
+  void testAddAndRemoveSingleElement() {
 
     //Assemble
     final Heap<Integer> heap = new ArrayHeap<>(Integer[].class, 1);
@@ -55,7 +55,7 @@ public class ArrayHeapTest {
   }
 
   @Test
-  public void addNewSmallestElementAndRemoveIt() {
+  void testAddNewSmallestElementAndRemoveIt() {
 
     //Assemble
     final Heap<Integer> heap = new ArrayHeap<>(Integer[].class, 2);
@@ -72,7 +72,7 @@ public class ArrayHeapTest {
   }
 
   @Test
-  public void addNewLargestElementAndRemoveAllElements() {
+  void testAddNewLargestElementAndRemoveAllElements() {
     //Assemble
     final Heap<Integer> heap = new ArrayHeap<>(Integer[].class, 2);
     final int largerItem = 10;
@@ -88,7 +88,7 @@ public class ArrayHeapTest {
   }
 
   @Test
-  public void removeElementsTest() {
+  void testRemoveElements() {
 
     final int size = 1000000;
     final Heap<Integer> heap = new ArrayHeap<>(Integer[].class, size);
@@ -97,7 +97,7 @@ public class ArrayHeapTest {
 
     for (int round = 0; round < rounds; round++) {
       final IntStream elementStream = random.ints(size);
-      elementStream.forEach(e -> heap.add(e));
+      elementStream.forEach(heap::add);
 
       removeFromHeap(size / 2, heap, Integer.MIN_VALUE);
       addToHeap(size / 4, heap);
@@ -110,13 +110,13 @@ public class ArrayHeapTest {
   }
 
   @Test
-  public void removeFromEmptyHeapShouldReturnNull() {
+  void testRemoveFromEmptyHeapShouldReturnNull() {
     final Heap<Integer> heap = new ArrayHeap<>(Integer[].class, 1);
     assertNull(heap.remove());
   }
 
   @Test
-  public void addingToFullHeapShouldReturnFalse() {
+  void testAddingToFullHeapShouldReturnFalse() {
     final Heap<Integer> heap = new ArrayHeap<>(Integer[].class, 1);
 
     assert heap.add(random.nextInt());
@@ -125,34 +125,15 @@ public class ArrayHeapTest {
   }
 
   @Test
-  public void removeFromHeapOfSizeZeroShouldReturnNull() {
+  void testRemoveFromHeapOfSizeZeroShouldReturnNull() {
     final Heap<Integer> heap = new ArrayHeap<>(Integer[].class, 0);
     assertNull(heap.remove());
   }
 
   @Test
-  public void addingToHeapOfSizeZeroShouldReturnFalse() {
+  void testAddingToHeapOfSizeZeroShouldReturnFalse() {
     final Heap<Integer> heap = new ArrayHeap<>(Integer[].class, 0);
     assertFalse(heap.add(random.nextInt()));
-  }
-
-  @Test
-  public void heapShouldBeStable() {
-    final ComparableClass c1 = new ComparableClass("abc", 1);
-    final ComparableClass c2 = new ComparableClass("abc", 2);
-    final ComparableClass c3 = new ComparableClass("xyz", 3);
-    final ComparableClass c4 = new ComparableClass("aaa", 4);
-
-    final Heap<ComparableClass> heap = new ArrayHeap<>(ComparableClass[].class, 4);
-    heap.add(c1);
-    heap.add(c3);
-    heap.add(c2);
-    heap.add(c4);
-
-
-    heap.remove();
-    assertEquals(c1.fieldToNotCompare, heap.remove().getFieldToNotCompare());
-    assertEquals(c2.fieldToNotCompare, heap.remove().getFieldToNotCompare());
   }
 
   private void removeFromHeap(final int numberToRemove, final Heap<Integer> heap, final int previousElement) {
@@ -170,30 +151,5 @@ public class ArrayHeapTest {
   private void addToHeap(final int numberOfEntriesToAdd, final Heap<Integer> heap) {
     final IntStream elementStream = random.ints(numberOfEntriesToAdd);
     elementStream.forEach(e -> assertTrue(heap.add(e)));
-  }
-
-  private static class ComparableClass implements Comparable<ComparableClass> {
-
-    private final String fieldToCompare;
-    private final int fieldToNotCompare;
-
-    public ComparableClass(final String fieldToCompare, final int fieldToNotCompare) {
-      this.fieldToCompare = fieldToCompare;
-      this.fieldToNotCompare = fieldToNotCompare;
-    }
-
-    public String getFieldToCompare() {
-      return fieldToCompare;
-    }
-
-    public int getFieldToNotCompare() {
-      return fieldToNotCompare;
-    }
-
-
-    @Override
-    public int compareTo(final ComparableClass o) {
-      return fieldToCompare.compareTo(o.fieldToCompare);
-    }
   }
 }
