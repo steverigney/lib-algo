@@ -2,19 +2,19 @@ package com.libalgo.sorting;
 
 import java.util.Random;
 
-public class InPlaceQuickSort implements SortingAlgo {
+public class InPlaceQuickSort {
 
-  private final Random random = new Random(System.nanoTime());
+  private static final Random random = new Random(System.nanoTime());
 
-  @Override
-  public <T extends Comparable<T>> void sort(final T[] items) {
+  public static <T extends Comparable<T>> void sort(final T[] items) {
     final int pivotIdx = items.length - 1;
     final int startIdx = 0;
     final Comparable[] tempHolder = new Comparable[1];
     sortInner(items, tempHolder, startIdx, pivotIdx);
   }
 
-  private void sortInner(final Comparable[] items, final Comparable[] tempHolder, final int startIdx, final int endIdx) {
+  @SuppressWarnings("unchecked")
+  private static void sortInner(final Comparable[] items, final Comparable[] tempHolder, final int startIdx, final int endIdx) {
 
     if (startIdx >= endIdx) {
       return;
@@ -49,7 +49,7 @@ public class InPlaceQuickSort implements SortingAlgo {
     sortInner(items, tempHolder, ltIdx + 1, endIdx);
   }
 
-  private void randomizePivot(final Comparable[] items, final Comparable[] temp, final int startIdx, final int endIdx) {
+  private static void randomizePivot(final Comparable[] items, final Comparable[] temp, final int startIdx, final int endIdx) {
     final int randomPivotIdx = startIdx + Math.abs(random.nextInt(endIdx - startIdx));
     temp[0] = items[endIdx];
     items[endIdx] = items[randomPivotIdx];

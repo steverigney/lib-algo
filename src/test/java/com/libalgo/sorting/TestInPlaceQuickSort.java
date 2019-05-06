@@ -7,14 +7,12 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class TestInPlaceQuickSort implements TestComparableSort {
-
-  private final InPlaceQuickSort quickSort = new InPlaceQuickSort();
+class TestInPlaceQuickSort {
 
   @Test
   void testSortEmptyList() {
     final String[] elements = new String[0];
-    quickSort.sort(elements);
+    InPlaceQuickSort.sort(elements);
 
     assertEquals(0, elements.length);
   }
@@ -22,7 +20,7 @@ class TestInPlaceQuickSort implements TestComparableSort {
   @Test
   void testSortSingleElementList() {
     final String[] elements = new String[]{"a"};
-    quickSort.sort(elements);
+    InPlaceQuickSort.sort(elements);
 
     assertEquals("a", elements[0]);
   }
@@ -30,7 +28,7 @@ class TestInPlaceQuickSort implements TestComparableSort {
   @Test
   void testSortNonEmptyList() {
     final Integer[] elements = new Integer[]{8, 5, 1, 3, 2, 89, 4, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7};
-    quickSort.sort(elements);
+    InPlaceQuickSort.sort(elements);
 
     int previous = Integer.MIN_VALUE;
     for (final int element : elements) {
@@ -52,7 +50,7 @@ class TestInPlaceQuickSort implements TestComparableSort {
       for (int idx = 0; idx < numberOfElements; idx++) {
         elements[idx] = random.nextLong();
       }
-      quickSort.sort(elements);
+      InPlaceQuickSort.sort(elements);
 
       long previous = Long.MIN_VALUE;
       for (final long element : elements) {
@@ -76,7 +74,7 @@ class TestInPlaceQuickSort implements TestComparableSort {
       for (int idx = 0; idx < numberOfElements; idx++) {
         elements[idx] = values[idx];
       }
-      quickSort.sort(elements);
+      InPlaceQuickSort.sort(elements);
 
       long previous = Long.MIN_VALUE;
       for (final long element : elements) {
@@ -89,7 +87,7 @@ class TestInPlaceQuickSort implements TestComparableSort {
   @Test
   void testSortAllElementsTheSame() {
     final Integer[] elements = new Integer[]{7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7};
-    quickSort.sort(elements);
+    InPlaceQuickSort.sort(elements);
 
     int previous = Integer.MIN_VALUE;
     for (final int element : elements) {
